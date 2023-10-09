@@ -1,8 +1,11 @@
 version: 2
 
-sources:
-  - name: stripe
-    database: db
-    schema: stripe
-    tables:
-      - name: payment
+models:
+  - name: stg_payments
+    description: Staged customer data from our jaffle shop app.
+    columns:
+      - name: customer_id
+        description: The primary key for customers.
+        tests:
+          - unique
+          - not_null
