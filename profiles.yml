@@ -9,6 +9,6 @@ jaffle_shop:
       user: user
       pass: password
       dbname: db
-      schema: dev_schema
+      schema: jaffle_shop
 
   target: dev
