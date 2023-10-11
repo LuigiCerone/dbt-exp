@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_payments
+  - name: stg_stripe__payments
     description: Staged customer data from our jaffle shop app.
     columns:
       - name: customer_id

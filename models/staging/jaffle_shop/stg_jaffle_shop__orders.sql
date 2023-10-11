@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from {{ source('ecom', 'raw_orders') }}
+    select * from {{ source('jaffle_shop', 'orders') }}
     where ordered_at <= {{ var('truncate_timespan_to') }}
 
 ),

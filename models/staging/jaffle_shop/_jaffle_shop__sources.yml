@@ -6,4 +6,5 @@ sources:
     schema: jaffle_shop
     tables:
       - name: customers
+      - name: customer_deletes
       - name: orders
