@@ -9,7 +9,7 @@ config-version: 2
 profile: 'jaffle_shop'
 
 vars:
-  truncate_timespan_to: '2016-09-12T14:41:00'
+  truncate_timespan_to: '2016-09-12'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be

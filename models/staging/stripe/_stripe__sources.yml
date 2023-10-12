@@ -3,6 +3,6 @@ version: 2
 sources:
   - name: stripe
     database: db
-    schema: stripe
+    schema: jaffle_shop
     tables:
       - name: raw_payments
