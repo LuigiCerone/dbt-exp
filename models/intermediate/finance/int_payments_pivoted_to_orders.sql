@@ -2,34 +2,61 @@
 
 with
 
+orders as (
+
+   select * from {{ ref('stg_jaffle_shop__orders') }}
+
+),
+
 payments as (
 
    select * from {{ ref('stg_stripe__payments') }}
 
 ),
 
-pivot_and_aggregate_payments_to_order_grain as (
+order_payments as (
 
-   select
-      order_id,
-      {% for payment_method in payment_methods -%}
+    select
+        order_id,
 
-         sum(
-            case
-               when payment_method = '{{ payment_method }}' and
-                    status = 'success'
-               then amount
-               else 0
-            end
-         ) as {{ payment_method }}_amount,
+        {% for payment_method in payment_methods -%}
+        sum(case when payment_method = '{{ payment_method }}' then amount else 0 end) as {{ payment_method }}_amount,
+        {% endfor -%}
 
-      {%- endfor %}
-      sum(case when status = 'success' then amount end) as total_amount
+        sum(amount) as total_amount
 
-   from payments
+    from payments
 
-   group by 1
+    group by order_id
+
+),
+
+final as (
+
+    select
+        orders.order_id,
+        orders.customer_id,
+        orders.order_date,
+        orders.status,
+
+        {% for payment_method in payment_methods -%}
+
+        order_payments.{{ payment_method }}_amount,
+        case
+            when {{ payment_method }}_amount is not null then true
+            else false
+        end as had_{{payment_method}}_payment,
+
+        {% endfor -%}
+
+        order_payments.total_amount as amount
+
+    from orders
+
+
+    left join order_payments
+        on orders.order_id = order_payments.order_id
 
 )
 
-select * from pivot_and_aggregate_payments_to_order_grain
+select * from final
