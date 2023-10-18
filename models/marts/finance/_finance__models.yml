@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: int_order_payments_pivoted
+  - name: orders
     description: This table has basic information about orders, as well as some derived facts based on payments
 
     columns:
@@ -20,7 +20,7 @@ models:
         description: Date (UTC) that the order was placed
 
       - name: status
-        description: '{{ doc("orders_status") }}'
+        description: '{{ doc("order_status") }}'
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']

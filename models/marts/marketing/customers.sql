@@ -8,7 +8,7 @@ customers as (
 
 orders as (
 
-    select * from {{ ref('orders')}}
+    select * from {{ ref('stg_jaffle_shop__orders')}}
 
 ),
 
@@ -16,10 +16,10 @@ customer_orders as (
 
     select
         customer_id,
-        min(order_date) as first_order_date,
-        max(order_date) as most_recent_order_date,
+        min(ordered_at) as first_order_date,
+        max(ordered_at) as most_recent_order_date,
         count(order_id) as number_of_orders,
-        sum(amount) as lifetime_value
+        sum(order_total) as lifetime_value
 
     from orders
 

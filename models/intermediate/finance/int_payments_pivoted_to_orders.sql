@@ -36,7 +36,7 @@ final as (
     select
         orders.order_id,
         orders.customer_id,
-        orders.order_date,
+        orders.ordered_at,
         orders.status,
 
         {% for payment_method in payment_methods -%}

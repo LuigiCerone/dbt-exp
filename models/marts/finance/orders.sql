@@ -17,8 +17,8 @@ orders_and_order_payments_joined as (
     select
         orders.order_id,
         orders.customer_id,
-        orders.order_date,
-        coalesce(order_payments.total_amount, 0) as amount,
+        orders.ordered_at,
+        coalesce(order_payments.amount, 0) as amount,
         coalesce(order_payments.gift_card_amount, 0) as gift_card_amount
 
     from orders
@@ -27,4 +27,4 @@ orders_and_order_payments_joined as (
 
 )
 
-select * from orders_and_payments_joined
+select * from orders_and_order_payments_joined
