@@ -1,3 +1,5 @@
+{%- set payment_methods = ['bank_transfer','credit_card','coupon','gift_card'] -%}
+
 with
 
 orders as  (
@@ -18,8 +20,15 @@ orders_and_order_payments_joined as (
         orders.order_id,
         orders.customer_id,
         orders.ordered_at,
-        coalesce(order_payments.amount, 0) as amount,
-        coalesce(order_payments.gift_card_amount, 0) as gift_card_amount
+        orders.status,
+
+        {% for payment_method in payment_methods -%}
+        order_payments.{{ payment_method }}_amount,
+        order_payments.had_{{payment_method}}_payment,
+        {% endfor -%}
+
+        coalesce(order_payments.total_amount, 0) as amount
+
 
     from orders
 

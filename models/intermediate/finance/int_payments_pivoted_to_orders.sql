@@ -43,13 +43,13 @@ final as (
 
         order_payments.{{ payment_method }}_amount,
         case
-            when {{ payment_method }}_amount is not null then true
+            when {{ payment_method }}_amount != 0 then true
             else false
         end as had_{{payment_method}}_payment,
 
         {% endfor -%}
 
-        order_payments.total_amount as amount
+        order_payments.total_amount as total_amount
 
     from orders
 
