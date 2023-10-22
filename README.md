@@ -16,6 +16,15 @@ Tested with:
 
 ## How to run
 
+#### Setup docker environment
+
+Create your own version of environment credentials:
+
+```bash
+cp .env.example .env
+```
+
+and edit the new file.
 
 #### Setup venv
 
@@ -25,7 +34,15 @@ Local environment is set up by using [make](https://www.gnu.org/software/make/) 
 make
 ```
 
-#### Run
+#### Run docker
+
+```bash
+docker compose up
+```
+
+
+#### Run dbt
+
 
 After virtual environment activation:
 
